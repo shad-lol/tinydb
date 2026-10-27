@@ -11,12 +11,12 @@ void execute(std::fstream& db, Op op, const std::string_view key, std::string_vi
 	if (op == SET) {
 		db.write("S", sizeof(op));
 
-		std::uint32_t key_len = key.size();
+		std::size_t key_len = key.size();
 		db.write(reinterpret_cast<const char*>(&key_len), sizeof(key_len));
 
 		db.write(key.data(), key_len);
 
-		std::uint32_t val_len = val.size();
+		std::size_t val_len = val.size();
 		db.write(reinterpret_cast<const char*>(&val_len), sizeof(val_len));
 
 		db.write(val.data(), val_len);
@@ -27,7 +27,7 @@ void execute(std::fstream& db, Op op, const std::string_view key, std::string_vi
 	else if (op == DELETE) {
 		db.write("D", sizeof(op));
 
-		std::uint32_t key_len = key.size();
+		std::size_t key_len = key.size();
 		db.write(reinterpret_cast<const char*>(&key_len), sizeof(key_len));
 
 		db.write(key.data(), key_len);
